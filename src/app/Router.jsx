@@ -5,6 +5,7 @@ import NotFound from "../pages/NotFound";
 
 import ClickSpeed from "../games/click-speed/ClickSpeed";
 import ReactionTime from "../games/reaction-time/ReactionTime";
+import Snake from "../games/snake/Snake";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "game/reaction-time",
         element: <ReactionTime />,
+      },
+      {
+        path: "game/snake",
+        element: <Snake />,
       },
     ],
   },
