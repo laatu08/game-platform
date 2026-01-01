@@ -21,11 +21,23 @@ function generateFood(snake) {
 }
 
 export default function Snake() {
+  const MODES = {
+    CLASSIC: "classic",
+    WRAP: "wrap",
+  };
+
+  const [mode, setMode] = useState(MODES.CLASSIC);
+
   const [snake, setSnake] = useState(INITIAL_SNAKE);
   const [food, setFood] = useState(() => generateFood(INITIAL_SNAKE));
   const [dir, setDir] = useState(INITIAL_DIR);
   const [running, setRunning] = useState(false);
   const [score, setScore] = useState(0);
+  const highScoreKey = `snake-high-score-${mode}`;
+
+  const [highScore, setHighScore] = useState(
+    () => Number(localStorage.getItem(highScoreKey)) || 0
+  );
 
   const intervalRef = useRef(null);
 
@@ -39,6 +51,13 @@ export default function Snake() {
     setScore(0);
     setRunning(true);
   }
+
+  useEffect(() => {
+    setSnake(INITIAL_SNAKE)
+    setFood(generateFood(INITIAL_SNAKE))
+    setScore(0)
+    setHighScore(Number(localStorage.getItem(highScoreKey)) || 0);
+  }, [mode]);
 
   // Keyboard input
   useEffect(() => {
@@ -79,15 +98,47 @@ export default function Snake() {
         };
 
         // Collision
-        if (
-          newHead.x < 0 ||
-          newHead.y < 0 ||
-          newHead.x >= GRID_SIZE ||
-          newHead.y >= GRID_SIZE ||
-          prev.some((s) => s.x === newHead.x && s.y === newHead.y)
-        ) {
+        // WALL HANDLING
+        if (mode === MODES.WRAP) {
+          if (newHead.x < 0) newHead.x = GRID_SIZE - 1;
+          if (newHead.y < 0) newHead.y = GRID_SIZE - 1;
+          if (newHead.x >= GRID_SIZE) newHead.x = 0;
+          if (newHead.y >= GRID_SIZE) newHead.y = 0;
+        } else {
+          if (
+            newHead.x < 0 ||
+            newHead.y < 0 ||
+            newHead.x >= GRID_SIZE ||
+            newHead.y >= GRID_SIZE
+          ) {
+            playDie();
+            setRunning(false);
+
+            setHighScore((prevHigh) => {
+              if (score > prevHigh) {
+                localStorage.setItem(highScoreKey, score);
+                return score;
+              }
+              return prevHigh;
+            });
+
+            return prev;
+          }
+        }
+
+        // SELF COLLISION (both modes)
+        if (prev.some((s) => s.x === newHead.x && s.y === newHead.y)) {
           playDie();
           setRunning(false);
+
+          setHighScore((prevHigh) => {
+            if (score > prevHigh) {
+              localStorage.setItem(highScoreKey, score);
+              return score;
+            }
+            return prevHigh;
+          });
+
           return prev;
         }
 
@@ -114,8 +165,45 @@ export default function Snake() {
       <h1 className="text-3xl font-extrabold mb-2">🐍 Snake</h1>
       <p className="text-gray-400 mb-4">Use arrow keys</p>
 
-      <div className="mb-3 text-lg font-semibold">
-        Score: <span className="text-green-400">{score}</span>
+      <div className="mb-4 flex justify-center gap-4">
+        <button
+          disabled={running}
+          onClick={() => setMode(MODES.CLASSIC)}
+          className={`px-4 py-1 rounded-lg text-sm font-semibold transition
+      ${
+        mode === MODES.CLASSIC
+          ? "bg-indigo-600 text-white"
+          : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+      }
+      ${running ? "opacity-50 cursor-not-allowed" : ""}
+    `}
+        >
+          Classic
+        </button>
+
+        <button
+          disabled={running}
+          onClick={() => setMode(MODES.WRAP)}
+          className={`px-4 py-1 rounded-lg text-sm font-semibold transition
+      ${
+        mode === MODES.WRAP
+          ? "bg-indigo-600 text-white"
+          : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+      }
+      ${running ? "opacity-50 cursor-not-allowed" : ""}
+    `}
+        >
+          Wrap
+        </button>
+      </div>
+
+      <div className="mb-3 text-lg font-semibold flex justify-center gap-6">
+        <div>
+          Score: <span className="text-green-400">{score}</span>
+        </div>
+        <div>
+          High ({mode}): <span className="text-yellow-400">{highScore}</span>
+        </div>
       </div>
 
       {/* BOARD */}
@@ -142,8 +230,7 @@ export default function Snake() {
             cellClass =
               "bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.9)]";
           } else if (isHead) {
-            cellClass =
-              "bg-green-600 shadow-[0_0_6px_rgba(34,197,94,0.8)]";
+            cellClass = "bg-green-600 shadow-[0_0_6px_rgba(34,197,94,0.8)]";
           } else if (isSnake) {
             cellClass = "bg-green-500";
           }
