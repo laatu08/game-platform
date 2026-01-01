@@ -8,6 +8,7 @@ import ReactionTime from "../games/reaction-time/ReactionTime";
 import Snake from "../games/snake/Snake";
 import WhackAMole from "../games/whack-a-mole/WhackAMole";
 import AimTrainer from "../games/aim-trainer/AimTrainer";
+import MemoryMatch from "../games/memory-match/MemoryMatch";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "game/aim-trainer",
         element: <AimTrainer />,
+      },
+      {
+        path: "game/memory-match",
+        element: <MemoryMatch />,
       },
     ],
   },

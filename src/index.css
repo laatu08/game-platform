@@ -49,3 +49,15 @@
 .animate-pop {
   animation: pop 0.2s ease-out;
 }
+
+.perspective {
+  perspective: 1000px;
+}
+
+.rotate-y-0 {
+  transform: rotateY(0deg);
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}

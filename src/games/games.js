@@ -38,5 +38,14 @@ export const games = [
         path: "/game/aim-trainer",
         emoji: "🎯",
         difficulty: "Medium"
+    },
+    {
+        id: "memory-match",
+        name: "Memory Match",
+        description: "Match all pairs with the fewest moves.",
+        path: "/game/memory-match",
+        emoji: "🧠",
+        difficulty: "Easy"
     }
+
 ];
