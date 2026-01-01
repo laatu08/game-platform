@@ -31,3 +31,21 @@
 ::-webkit-scrollbar{
   scrollbar-width: none;
 }
+
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pop {
+  animation: pop 0.2s ease-out;
+}

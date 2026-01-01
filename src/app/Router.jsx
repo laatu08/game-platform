@@ -6,6 +6,7 @@ import NotFound from "../pages/NotFound";
 import ClickSpeed from "../games/click-speed/ClickSpeed";
 import ReactionTime from "../games/reaction-time/ReactionTime";
 import Snake from "../games/snake/Snake";
+import WhackAMole from "../games/whack-a-mole/WhackAMole";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "game/snake",
         element: <Snake />,
+      },
+      {
+        path: "game/whack-a-mole",
+        element: <WhackAMole />,
       },
     ],
   },

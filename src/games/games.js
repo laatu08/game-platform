@@ -22,5 +22,14 @@ export const games = [
         path: "/game/snake",
         emoji: "🐍",
         difficulty: "Medium"
+    },
+    {
+        id: "whack-a-mole",
+        name: "Whack-a-Mole",
+        description: "Click fast before the mole disappears.",
+        path: "/game/whack-a-mole",
+        emoji: "🔨",
+        difficulty: "Medium"
     }
+
 ];
