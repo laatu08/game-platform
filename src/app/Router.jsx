@@ -9,6 +9,7 @@ import Snake from "../games/snake/Snake";
 import WhackAMole from "../games/whack-a-mole/WhackAMole";
 import AimTrainer from "../games/aim-trainer/AimTrainer";
 import MemoryMatch from "../games/memory-match/MemoryMatch";
+import SimonSays from "../games/simon-says/SimonSays";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
         path: "game/memory-match",
         element: <MemoryMatch />,
       },
+      {
+        path: "game/simon-says",
+        element: <SimonSays />
+      }
     ],
   },
 ]);

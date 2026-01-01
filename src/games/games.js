@@ -46,6 +46,13 @@ export const games = [
         path: "/game/memory-match",
         emoji: "🧠",
         difficulty: "Easy"
+    },
+    {
+        id: "simon-says",
+        name: "Simon Says",
+        description: "Repeat the color pattern without mistakes.",
+        path: "/game/simon-says",
+        emoji: "🟦",
+        difficulty: "Medium"
     }
-
 ];
