@@ -7,6 +7,7 @@ import ClickSpeed from "../games/click-speed/ClickSpeed";
 import ReactionTime from "../games/reaction-time/ReactionTime";
 import Snake from "../games/snake/Snake";
 import WhackAMole from "../games/whack-a-mole/WhackAMole";
+import AimTrainer from "../games/aim-trainer/AimTrainer";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "game/whack-a-mole",
         element: <WhackAMole />,
+      },
+      {
+        path: "game/aim-trainer",
+        element: <AimTrainer />,
       },
     ],
   },

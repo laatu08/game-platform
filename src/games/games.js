@@ -30,6 +30,13 @@ export const games = [
         path: "/game/whack-a-mole",
         emoji: "🔨",
         difficulty: "Medium"
+    },
+    {
+        id: "aim-trainer",
+        name: "Aim Trainer",
+        description: "Test your precision and reaction speed.",
+        path: "/game/aim-trainer",
+        emoji: "🎯",
+        difficulty: "Medium"
     }
-
 ];
