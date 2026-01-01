@@ -54,5 +54,14 @@ export const games = [
         path: "/game/simon-says",
         emoji: "🟦",
         difficulty: "Medium"
+    },
+    {
+        id: "typing-speed",
+        name: "Typing Speed",
+        description: "Test your typing speed and accuracy.",
+        path: "/game/typing-speed",
+        emoji: "⌨️",
+        difficulty: "Medium"
     }
+
 ];

@@ -10,6 +10,7 @@ import WhackAMole from "../games/whack-a-mole/WhackAMole";
 import AimTrainer from "../games/aim-trainer/AimTrainer";
 import MemoryMatch from "../games/memory-match/MemoryMatch";
 import SimonSays from "../games/simon-says/SimonSays";
+import TypingSpeed from "../games/typing-speed/TypingSpeed";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "game/simon-says",
         element: <SimonSays />
+      },
+      {
+        path: "game/typing-speed",
+        element: <TypingSpeed />
       }
     ],
   },
