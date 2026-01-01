@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import clickSound from "../../assets/sounds/click.mp3";
+import successSound from "../../assets/sounds/success.mp3";
+import tickSound from "../../assets/sounds/tick.mp3";
+import { useSound } from "../../hooks/useSound";
 
 export default function ClickSpeed() {
   const GAME_TIME = 10;
@@ -11,6 +15,10 @@ export default function ClickSpeed() {
   );
   const [pop, setPop] = useState(false);
 
+  const playClick = useSound(clickSound, 0.4);
+  const playSuccess = useSound(successSound, 0.6);
+  const playTick = useSound(tickSound, 0.6);
+
   // Timer
   useEffect(() => {
     if (!isRunning || timeLeft === 0) return;
@@ -18,7 +26,7 @@ export default function ClickSpeed() {
     const timer = setTimeout(() => {
       setTimeLeft((t) => t - 1);
     }, 1000);
-
+    playTick();
     return () => clearTimeout(timer);
   }, [isRunning, timeLeft]);
 
@@ -30,6 +38,7 @@ export default function ClickSpeed() {
     const cps = clicks / GAME_TIME;
 
     if (cps > bestCps) {
+      playSuccess();
       setBestCps(cps);
       localStorage.setItem("click-speed-best-cps", cps.toFixed(2));
     }
@@ -45,6 +54,7 @@ export default function ClickSpeed() {
     if (!isRunning) return;
 
     setClicks((c) => c + 1);
+    playClick();
     setPop(true);
     setTimeout(() => setPop(false), 100);
   }
